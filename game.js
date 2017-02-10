@@ -8,6 +8,8 @@
 	//should contain all of the methods which will check the letters guessed versus the random word selected.
 //3. Letter.js
 	//should control whether or not a letter appears as a "_" or as itself on-screen.
+//. Display the numbers of guesses left.
+
 //End the game if they run out of guesses. Say you lose!
 //End the game if they guess the word.
 //Ask if would like to play again?
@@ -20,7 +22,15 @@ var Letter = require('./Letter');
 //This is how we require the Word constructor function
 var Word = require('./Word');
 
-var userResponse = process.argv[2];
+//-----------------------------------------------------------------------
+
+//Variables here
+var numGuesses = 10;
+var numGuessesLeft = ;
+var lettersGuessed = "";
+
+
+//-----------------------------------------------------------------------
 
 //Start off with a prompt that will ask the user if they would like to start.
 console.log("--------------------------------------------------------------------------------");
@@ -52,7 +62,7 @@ function askToStart(){
 
 askToStart();
 
-
+//This will allow the user to guess a letter
 function lettersGuessed(){
 	inquirer.prompt([
 	  {type: "input",
@@ -61,7 +71,7 @@ function lettersGuessed(){
 
 	]).then(function(data){
 	      var newLetter = new Letter(data.letterGuessed);
-	      newLetter.addLetter(newLetter);
+	      newWord.addLetter(newLetter);
 
 	      console.log(newLetter);
 	      
@@ -73,7 +83,7 @@ function lettersGuessed(){
 
 
 
-
+//At the end say "Curses! Boiled again!!"
 
 
 
