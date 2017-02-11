@@ -1,9 +1,4 @@
-//This is 'Veggie in the Raw Hangman Game'.
-//If you do not guess the vegetable in time it will get thrown in the pot to cook!
-//Keep your veggies alive, think carefully, my friend. 
-//Let's get started, shall we?
 
-//1. We need a prompt from Inquirer that will ask the user if they would like to begin?
 //2. This will be the function in Word.js
 	//should contain all of the methods which will check the letters guessed versus the random word selected.
 //3. Letter.js
@@ -20,27 +15,37 @@ var inquirer = require('inquirer');
 //This is how we require the Letter constructor function
 var Letter = require('./Letter');
 //This is how we require the Word constructor function
-var Word = require('./Word');
+var letterChecker = require('./letterChecker');
 
-//-----------------------------------------------------------------------
 
-//Variables here
+//User Introduction
+
+console.log("--------------------------------------------------------------------------------");
+console.log("'Veggies in the Raw' Hangman Game");
+console.log("--------------------------------------------------------------------------------");
+
+console.log("If you do not guess the veggie in time, it will get thrown in the pot to boil!");
+console.log("To keep your veggies in the raw, be selective with each letter, my friend.");
+console.log("--------------------------------------------------------------------------------");
+
+//--------------------------------------------------------------------
+
+//Variables
 var numGuesses = 10;
-var numGuessesLeft = ;
+var numGuessesLeft = 0;
 var lettersGuessed = "";
 
+//--------------------------------------------------------------------
 
-//-----------------------------------------------------------------------
+//Let the computer choose a word first
+//Create an array with all the vegetables user can guess.
 
-//Start off with a prompt that will ask the user if they would like to start.
-console.log("--------------------------------------------------------------------------------");
-console.log("This is 'Veggie in the Raw' Hangman Game. <br>");
-console.log("--------------------------------------------------------------------------------");
+var veggiesArray = ['carrot', 'asparagus', 'beet', 'corn', 'potato', 'string bean', 'avocado', 'spinach', 'cabbage', 'cauliflower', 'onion', 'lettuce', 'maize', 'cucumber', 'kale', 'celery', 'turnip', 'eggplant', 'brussel sprout', 'zucchini', 'artichoke', 'radish', 'garlic', 'chard', 'leek', 'arugula', 'rutabaga', 'parsnip', 'watercress', 'scallion', 'rhubarb', 'chili pepper', 'squash', 'shallot'];
 
-console.log("If you do not guess the vegetable in time it will get thrown in the pot to boil!");
-console.log("To keep your veggies alive, be selective with each letter, my friend.");
-console.log("--------------------------------------------------------------------------------");
+//The computer randomly chooses a vegetable
 
+var randomVeggie = veggiesArray[Math.floor(Math.random()*veggiesArray.length)];
+	// console.log(randomVeggie);
 
 //Ask if the user would like to get started.
 function askToStart(){
@@ -52,7 +57,7 @@ function askToStart(){
 	]).then(function(data){
 	      if (data.startGame == 'yes'){
 	      	//go to where the game will start
-	      	lettersGuessed()
+	      	lettersGuessed();
 		  }else{
 		  	//go to where game ends
 	      	console.log('Maybe next time then!');
@@ -62,25 +67,25 @@ function askToStart(){
 
 askToStart();
 
+
+var lettersToCheck = [];
+
 //This will allow the user to guess a letter
 function lettersGuessed(){
 	inquirer.prompt([
 	  {type: "input",
 	    name: "letterGuessed",
-	    message: "Your Letter?"}
+	    message: "Your Letter?"},
 
 	]).then(function(data){
-	      var newLetter = new Letter(data.letterGuessed);
-	      newWord.addLetter(newLetter);
-
-	      console.log(newLetter);
-	      
-	      checkLetter();
-	      
-	      
+	      var lettersToCheck = [];
+	      var newLetter = data.letterGuessed;
+	      lettersToCheck.push(newLetter);
+    
+    	console.log(lettersToCheck);   
+	
 	});
 }
-
 
 
 //At the end say "Curses! Boiled again!!"
