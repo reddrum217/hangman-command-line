@@ -13,9 +13,9 @@
 //First we need to install inquirer and require the npm package
 var inquirer = require('inquirer');
 //This is how we require the Letter constructor function
-var Letter = require('./Letter');
+var Letter = require('./letter.js');
 //This is how we require the Word constructor function
-var letterChecker = require('./letterChecker');
+var Word = require('./word.js');
 
 
 //User Introduction
@@ -33,7 +33,7 @@ console.log("-------------------------------------------------------------------
 //Variables
 var numGuesses = 10;
 var numGuessesLeft = 0;
-var lettersGuessed = "";
+
 
 //--------------------------------------------------------------------
 
@@ -44,23 +44,28 @@ var veggiesArray = ['carrot', 'asparagus', 'beet', 'corn', 'potato', 'string bea
 
 //The computer randomly chooses a vegetable
 
-var randomVeggie = veggiesArray[Math.floor(Math.random()*veggiesArray.length)];
-	// console.log(randomVeggie);
+var newWord = new Word(veggiesArray[Math.floor(Math.random()*veggiesArray.length)]);
+
+// console.log(newWord.word);
 
 //Ask if the user would like to get started.
 function askToStart(){
 	inquirer.prompt([
 	  {type: "input",
 	    name: "startGame",
-	    message: "Let's get started, shall we?"}
+	    message: "Ready to play? Yes or no."}
 
 	]).then(function(data){
 	      if (data.startGame == 'yes'){
 	      	//go to where the game will start
+	      	//go to where the letter.js to get the blank lines in
 	      	lettersGuessed();
-		  }else{
+		  }else if (data.startGame == 'no'){
 		  	//go to where game ends
 	      	console.log('Maybe next time then!');
+	      }else {
+	      	console.log('Yes or no please...');
+	      	askToStart();
 	      }
 	});
 }
@@ -70,22 +75,45 @@ askToStart();
 
 var lettersToCheck = [];
 
+
 //This will allow the user to guess a letter
 function lettersGuessed(){
 	inquirer.prompt([
 	  {type: "input",
 	    name: "letterGuessed",
-	    message: "Your Letter?"},
+	    message: "Your Letter: "}
 
 	]).then(function(data){
-	      var lettersToCheck = [];
-	      var newLetter = data.letterGuessed;
-	      lettersToCheck.push(newLetter);
+	      // var lettersToCheck = [];
+	      var newLett = new Letter(data.letterGuessed);
+	      console.log(newLett);
+	      console.log(newLett);
+	      console.log(newLett);
+	      console.log(newLett);
+
+	      // console.log(newLett)
+	      // return newLett;
+	    //   lettersToCheck.push(newLett);
     
-    	console.log(lettersToCheck);   
+ 		  // console.log(newLett);
+    	//   console.log(lettersToCheck);   
 	
 	});
 }
+
+
+
+// message: "Number of band members in the band?"},]).then(function(data){
+//         var newBand = new Band(data.bandName, data.numBandMembers);
+//         bands.push(newBand);
+//         if (bands.length < 5) {
+//           askBandInfo();
+//         }else {
+//           console.log(bands);
+//         }
+//   });
+// }
+
 
 
 //At the end say "Curses! Boiled again!!"
